@@ -9,6 +9,8 @@ class GameMap {
     public:
         short getType(int x, int y);
         void setType(int x, int y, short value);
+        short getOwner(int x, int y);
+        void setOwner(int x, int y, short pid);
         //void printArray();
         GameMap();
 };

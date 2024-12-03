@@ -38,6 +38,7 @@ int main (int argc, char ** args) {
     SDL_Texture *bottom_pane = IMG_LoadTexture(ren, "resources/palette.png");
     bool isRunning = true;
     bool fullscreen = false;
+    bool playerHasCenter = false;
 
     SDL_UpdateWindowSurface(window);
     SDL_RenderClear(ren);
@@ -87,14 +88,20 @@ int main (int argc, char ** args) {
                 fullscreen = !fullscreen;
             }
             if(e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT) {
+                if(gMap.getOwner(e.button.x / 32, e.button.y / 32) != 0) { continue; }
+                if(fieldType == 4 && playerHasCenter) { continue; }
                 gMap.setType(e.button.x / 32, e.button.y / 32, fieldType);
+                gMap.setOwner(e.button.x / 32, e.button.y / 32, 1);
                 if(fieldType == 4) {
+                    if(gMap.getOwner(e.button.x / 32, e.button.y / 32) != 0 || playerHasCenter) { continue; }
                     for(int x = -2; x < 3; x++) {
                         for(int y = -2; y < 3; y++) {
                             gMap.setType(e.button.x / 32 + x, e.button.y / 32 + y, 5);
+                            gMap.setOwner(e.button.x / 32 + x, e.button.y / 32 + y, 1);
                         }
                     }
                     gMap.setType(e.button.x / 32, e.button.y / 32, fieldType);
+                    playerHasCenter = true;
                 } 
                 SDL_RenderClear(ren);
                 myRender.drawMap(gMap);
