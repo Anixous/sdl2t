@@ -69,10 +69,10 @@ int main (int argc, char ** args) {
             if(e.type == SDL_KEYDOWN && e.key.keysym.scancode == SDL_SCANCODE_5) { fieldType = 5; }
             if(e.type == SDL_KEYDOWN && e.key.keysym.scancode == SDL_SCANCODE_0) { fieldType = 0; }
             if(fullscreen) {
-                SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+                SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
             } else {
                 SDL_SetWindowFullscreen(window, 0); 
-            }
+            } 
             if(e.type == SDL_QUIT) {
                 isRunning = false;
             }
@@ -87,14 +87,14 @@ int main (int argc, char ** args) {
                 fullscreen = !fullscreen;
             }
             if(e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT) {
-                gMap.setPos(e.button.x / 32, e.button.y / 32, fieldType);
+                gMap.setType(e.button.x / 32, e.button.y / 32, fieldType);
                 if(fieldType == 4) {
                     for(int x = -2; x < 3; x++) {
                         for(int y = -2; y < 3; y++) {
-                            gMap.setPos(e.button.x / 32 + x, e.button.y / 32 + y, 5);
+                            gMap.setType(e.button.x / 32 + x, e.button.y / 32 + y, 5);
                         }
                     }
-                    gMap.setPos(e.button.x / 32, e.button.y / 32, fieldType);
+                    gMap.setType(e.button.x / 32, e.button.y / 32, fieldType);
                 } 
                 SDL_RenderClear(ren);
                 myRender.drawMap(gMap);

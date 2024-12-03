@@ -25,7 +25,7 @@ void GameRenderer::drawMap(GameMap gMap) {
     SDL_Rect localRect = GameRenderer::fieldRect;
     for(int y = 0; y < GameRenderer::h / 32 + 1; y++) {
         for(int x = 0; x <= GameRenderer::w / 32 + 1; x++) {     
-            SDL_RenderCopy(GameRenderer::renderer, GameRenderer::textures[gMap.getPos(x, y)], NULL, &localRect);
+            SDL_RenderCopy(GameRenderer::renderer, GameRenderer::textures[gMap.getType(x, y)], NULL, &localRect);
             localRect.x += 32;  
         }
         localRect.y += 32;
